@@ -4,14 +4,22 @@
             {{ __('User Avatar') }}
         </h2>
 
+        <img width="50" height="50" class="rounded-full" src="{{ "/storage/$user->avatar" }}" alt="user avatar"/>
+
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Add or update user avatar") }}
+            Add or update user avatar
         </p>
     </header>
 
+    @if (session('message'))
+        <div class="text-red-500">
+            {{ session('message') }}
+        </div>
+    @endif
 
-
-    </form method="post" action="/profile/avatar">
+    <form method="post" action="{{route('profile.avatar')}}" enctype="multipart/form-data">
+        @method('patch')
+        @csrf
         <!-- Campo 'Avatar' !-->
         <div>
             <x-input-label for="avatar" :value="__('Avatar')" />
